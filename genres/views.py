@@ -1,3 +1,12 @@
-from django.shortcuts import render
+from django.views.generic import ListView
 
-# Create your views here.
+from .models import Genre
+
+
+class GenreListView(ListView):
+    model = Genre
+    context_object_name = "genres"
+    ordering = ["name"]
+
+    def get_queryset(self):
+        return Genre.objects.filter(active=True)
