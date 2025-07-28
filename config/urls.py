@@ -5,5 +5,5 @@ from genres.views import GenreListView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/v1/genre/", GenreListView.as_view(), name="genre-list"),
+    path("api/v1/genres/", GenreListView, name="genre-list"),
 ]
