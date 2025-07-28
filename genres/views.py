@@ -3,6 +3,7 @@
 import json
 
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import Genre
 
@@ -15,6 +16,7 @@ from .models import Genre
 #         return Genre.objects.filter(active=True)
 
 
+@csrf_exempt
 def GenreListView(request):
     if request.method == "GET":
         genres = Genre.objects.filter(active=True).values(
@@ -24,3 +26,12 @@ def GenreListView(request):
         return JsonResponse({"genres": data})
     elif request.method == "POST":
         data = json.loads(request.body.decode("utf-8"))
+        new_genre = Genre(
+            name=data.get("name"),
+            description=data.get("description"),
+            active=data.get("active"),
+        )
+        new_genre.save()
+        return JsonResponse(
+            {"id": new_genre.id, "name": new_genre.name}, status=201
+        )
