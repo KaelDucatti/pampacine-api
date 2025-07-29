@@ -23,6 +23,7 @@ def GenreListView(request):
             for gr in genres
         ]
         return JsonResponse({"genres": data})
+
     elif request.method == "POST":
         data = json.loads(request.body.decode("utf-8"))
         new_genre = Genre(
@@ -46,3 +47,25 @@ def GenreDetailView(request, pk):
             "active": genre_detail.active,
         }
         return JsonResponse(data)
+
+    elif request.method == "PUT":
+        data = json.loads(request.body.decode("utf-8"))
+        genre = get_object_or_404(Genre, pk=pk)
+        genre.name = data.get("name", genre.name)
+        genre.description = data.get("description", genre.description)
+        genre.active = data.get("active", genre.active)
+        genre.save()
+        data = {
+            "id": genre.id,
+            "name": genre.name,
+            "description": genre.description,
+            "active": genre.active,
+        }
+        return JsonResponse(data, status=200)
+
+    elif request.method == "DELETE":
+        genre = get_object_or_404(Genre, pk=pk)
+        genre.delete()
+        return JsonResponse(
+            {"message": "Genre deleted successfully."}, status=204
+        )
