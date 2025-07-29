@@ -28,7 +28,7 @@ def GenreListView(request):
         new_genre = Genre(
             name=data.get("name"),
             description=data.get("description"),
-            active=data.get("active"),
+            active=data.get("active", True),
         )
         new_genre.save()
         data = {"id": new_genre.id, "name": new_genre.name}
