@@ -38,19 +38,19 @@ def GenreListView(request):
 
 @csrf_exempt
 def GenreDetailView(request, pk):
+    genre = get_object_or_404(Genre, pk=pk)
+
     if request.method == "GET":
-        genre_detail = get_object_or_404(Genre, pk=pk)
         data = {
-            "id": genre_detail.id,
-            "name": genre_detail.name,
-            "description": genre_detail.description,
-            "active": genre_detail.active,
+            "id": genre.id,
+            "name": genre.name,
+            "description": genre.description,
+            "active": genre.active,
         }
         return JsonResponse(data)
 
     elif request.method == "PUT":
         data = json.loads(request.body.decode("utf-8"))
-        genre = get_object_or_404(Genre, pk=pk)
         genre.name = data.get("name", genre.name)
         genre.description = data.get("description", genre.description)
         genre.active = data.get("active", genre.active)
@@ -64,7 +64,6 @@ def GenreDetailView(request, pk):
         return JsonResponse(data, status=200)
 
     elif request.method == "DELETE":
-        genre = get_object_or_404(Genre, pk=pk)
         genre.delete()
         return JsonResponse(
             {"message": "Genre deleted successfully."}, status=204
