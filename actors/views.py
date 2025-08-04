@@ -4,17 +4,29 @@ from rest_framework.generics import (
 )
 
 from .models import Actor, Nationality
-from .serializers import ActorSerializer, NationalitySerializer
+from .serializers import (
+    ActorCreateUpdateSerializer,
+    ActorListSerializer,
+    NationalitySerializer,
+)
 
 
 class ActorListCreateAPIView(ListCreateAPIView):
     queryset = Actor.objects.all()
-    serializer_class = ActorSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == "GET":
+            return ActorListSerializer
+        return ActorCreateUpdateSerializer
 
 
 class ActorRetriveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Actor.objects.all()
-    serializer_class = ActorSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == "GET":
+            return ActorListSerializer
+        return ActorCreateUpdateSerializer
 
 
 class NationalityListCreateAPIView(ListCreateAPIView):
