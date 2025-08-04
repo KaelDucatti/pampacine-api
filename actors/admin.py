@@ -1,7 +1,15 @@
 from django.contrib import admin
 
+from .models import Actor, Nationality
 
+
+@admin.register(Actor)
 class ActorsAdmin(admin.ModelAdmin):
-    list_display = ("id", "first_name", "last_nale", "gender")
-    search_fields = ("first_name", "last_name", "age", "gender")
-    ordering = ("first_name",)
+    list_display = ("id", "first_name", "last_name", "nationality", "birthday")
+    search_fields = ("first_name", "last_name", "nationality", "birthday")
+
+
+@admin.register(Nationality)
+class NationalitiesAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "acronym")
+    search_fields = ("name", "acronym")

@@ -4,6 +4,8 @@ from django.urls import path
 from actors.views import (
     ActorListCreateAPIView,
     ActorRetriveUpdateDestroyAPIView,
+    NationalityListCreateAPIView,
+    NationalityRetriveUpdateDestroyAPIView,
 )
 from genres.views import (
     GenreListCreateAPIView,
@@ -31,5 +33,15 @@ urlpatterns = [
         "api/v1/actors/<int:pk>/",
         ActorRetriveUpdateDestroyAPIView.as_view(),
         name="actor-retrive-update-destroy",
+    ),
+    path(
+        "api/v1/nationality/",
+        NationalityListCreateAPIView.as_view(),
+        name="nationality-list-create",
+    ),
+    path(
+        "api/v1/nationality/<int:pk>/",
+        NationalityRetriveUpdateDestroyAPIView.as_view(),
+        name="nationality-retrive-update-destroy",
     ),
 ]
