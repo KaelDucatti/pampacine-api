@@ -13,3 +13,6 @@ class Movie(models.Model):
     genres = models.ForeignKey(
         Genre, on_delete=models.PROTECT, related_name="movie-genres"
     )
+
+    def __str__(self):
+        return self.title
