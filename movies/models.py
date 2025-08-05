@@ -8,10 +8,10 @@ class Movie(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=500)
     release_date = models.DateField(null=True, blank=True)
-    movie_cast = models.ManyToManyField(Actor, related_name="movie-cast")
+    movie_cast = models.ManyToManyField(Actor, related_name="movie_cast")
     resume = models.TextField(null=True, blank=True)
     genres = models.ForeignKey(
-        Genre, on_delete=models.PROTECT, related_name="movie-genres"
+        Genre, on_delete=models.PROTECT, related_name="movie_genres"
     )
 
     def __str__(self):
