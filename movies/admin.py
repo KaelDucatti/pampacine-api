@@ -11,4 +11,9 @@ class MovieAdmin(admin.ModelAdmin):
         "release_date",
         "resume",
     )
-    search_fields = ("title", "release_date", "movie_cast", "genres")
+    search_fields = (
+        "title",
+        "movie_cast__first_name",
+        "movie_cast__last_name",
+        "genres__name",
+    )
