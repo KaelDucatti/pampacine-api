@@ -3,13 +3,17 @@ from django.urls import path
 
 from actors.views import (
     ActorListCreateAPIView,
-    ActorRetriveUpdateDestroyAPIView,
+    ActorRetrieveUpdateDestroyAPIView,
     NationalityListCreateAPIView,
-    NationalityRetriveUpdateDestroyAPIView,
+    NationalityRetrieveUpdateDestroyAPIView,
 )
 from genres.views import (
     GenreListCreateAPIView,
     GenreRetriveUpdateDestroyAPIView,
+)
+from movies.views import (
+    MovieListCreateAPIView,
+    MovieRetrieveUpdateDestroyAPIView,
 )
 
 urlpatterns = [
@@ -22,7 +26,7 @@ urlpatterns = [
     path(
         "api/v1/genres/<int:pk>/",
         GenreRetriveUpdateDestroyAPIView.as_view(),
-        name="genre-retrive-update-destroy",
+        name="genre-retrieve-update-destroy",
     ),
     path(
         "api/v1/actors/",
@@ -31,8 +35,8 @@ urlpatterns = [
     ),
     path(
         "api/v1/actors/<int:pk>/",
-        ActorRetriveUpdateDestroyAPIView.as_view(),
-        name="actor-retrive-update-destroy",
+        ActorRetrieveUpdateDestroyAPIView.as_view(),
+        name="actor-retrieve-update-destroy",
     ),
     path(
         "api/v1/nationality/",
@@ -41,7 +45,17 @@ urlpatterns = [
     ),
     path(
         "api/v1/nationality/<int:pk>/",
-        NationalityRetriveUpdateDestroyAPIView.as_view(),
-        name="nationality-retrive-update-destroy",
+        NationalityRetrieveUpdateDestroyAPIView.as_view(),
+        name="nationality-retrieve-update-destroy",
+    ),
+    path(
+        "api/v1/movies/",
+        MovieListCreateAPIView.as_view(),
+        name="movies-list-create",
+    ),
+    path(
+        "api/v1/movies/<int:pk>/",
+        MovieRetrieveUpdateDestroyAPIView.as_view(),
+        name="movies-retreive-update-destroy",
     ),
 ]

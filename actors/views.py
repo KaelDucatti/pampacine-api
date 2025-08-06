@@ -5,35 +5,41 @@ from rest_framework.generics import (
 
 from .models import Actor, Nationality
 from .serializers import (
-    ActorCreateUpdateSerializer,
+    ActorCreateUpdateDestroySerializer,
     ActorListSerializer,
-    NationalitySerializer,
+    ActorRetrieveSerializer,
+    NationalityListSerializer,
+    NationalityRetrieveCreateUpdateDestroySerializer,
 )
 
 
 class ActorListCreateAPIView(ListCreateAPIView):
-    queryset = Actor.objects.all()
+    queryset = Actor.objects.select_related("nationality").all()
 
     def get_serializer_class(self):
         if self.request.method == "GET":
             return ActorListSerializer
-        return ActorCreateUpdateSerializer
+        return ActorCreateUpdateDestroySerializer
 
 
-class ActorRetriveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-    queryset = Actor.objects.all()
+class ActorRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Actor.objects.select_related("nationality").all()
 
     def get_serializer_class(self):
         if self.request.method == "GET":
-            return ActorListSerializer
-        return ActorCreateUpdateSerializer
+            return ActorRetrieveSerializer
+        return ActorCreateUpdateDestroySerializer
 
 
 class NationalityListCreateAPIView(ListCreateAPIView):
     queryset = Nationality.objects.all()
-    serializer_class = NationalitySerializer
+
+    def get_serializer_class(self):
+        if self.request.method == "GET":
+            return NationalityListSerializer
+        return NationalityRetrieveCreateUpdateDestroySerializer
 
 
-class NationalityRetriveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+class NationalityRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Nationality.objects.all()
-    serializer_class = NationalitySerializer
+    serializer_class = NationalityRetrieveCreateUpdateDestroySerializer

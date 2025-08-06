@@ -10,9 +10,7 @@ class Movie(models.Model):
     release_date = models.DateField(null=True, blank=True)
     movie_cast = models.ManyToManyField(Actor, related_name="movie_cast")
     resume = models.TextField(null=True, blank=True)
-    genres = models.ForeignKey(
-        Genre, on_delete=models.PROTECT, related_name="movie_genres"
-    )
+    genres = models.ManyToManyField(Genre, related_name="movie_genres")
 
     def __str__(self):
         return self.title

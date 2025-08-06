@@ -9,8 +9,6 @@ class MovieAdmin(admin.ModelAdmin):
         "id",
         "title",
         "release_date",
-        "movie_cast",
         "resume",
-        "genres",
     )
     search_fields = ("title", "release_date", "movie_cast", "genres")

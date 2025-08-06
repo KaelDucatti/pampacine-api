@@ -8,11 +8,7 @@ class Genre(models.Model):
     active = models.BooleanField(default=True)
 
     def __str__(self):
-        return (
-            f"{self.name} (active)"
-            if self.active
-            else f"{self.name} (inactive)"
-        )
+        return self.name
 
     class Meta:
         ordering = ["name"]
