@@ -15,6 +15,10 @@ from movies.views import (
     MovieListCreateAPIView,
     MovieRetrieveUpdateDestroyAPIView,
 )
+from reviews.views import (
+    ReviewListCreateAPIView,
+    ReviewRetrieveUpdateDestroyAPIView,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -57,5 +61,15 @@ urlpatterns = [
         "api/v1/movies/<int:pk>/",
         MovieRetrieveUpdateDestroyAPIView.as_view(),
         name="movies-retreive-update-destroy",
+    ),
+    path(
+        "api/v1/reviews/",
+        ReviewListCreateAPIView.as_view(),
+        name="review-list-create",
+    ),
+    path(
+        "api/v1/reviews/<int:pk>/",
+        ReviewRetrieveUpdateDestroyAPIView.as_view(),
+        name="review-retrieve-update-destroy",
     ),
 ]

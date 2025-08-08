@@ -28,7 +28,7 @@ class Review(models.Model):
     comment = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.movie} ({self.start}) estrelas"
+        return f"{self.movie} ({self.stars}) estrelas"
 
     class Meta:
         ordering = ["movie__title"]
