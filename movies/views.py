@@ -12,9 +12,7 @@ from .serializers import (
 
 
 class MovieListCreateAPIView(ListCreateAPIView):
-    queryset = Movie.objects.prefetch_related(
-        "movie_cast__nationality", "genres"
-    ).all()
+    queryset = Movie.objects.prefetch_related("movie_cast", "genres").all()
 
     def get_serializer_class(self):
         if self.request.method == "GET":

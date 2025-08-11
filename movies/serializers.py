@@ -11,10 +11,28 @@ from .models import Movie
 class MovieListSerializer(serializers.ModelSerializer):
     genres = serializers.StringRelatedField(many=True, read_only=True)
     movie_cast = serializers.StringRelatedField(many=True, read_only=True)
+    rate = serializers.SerializerMethodField(read_only=True)
+    reviews = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Movie
-        fields = ["id", "title", "release_date", "genres", "movie_cast"]
+        fields = [
+            "id",
+            "title",
+            "release_date",
+            "genres",
+            "movie_cast",
+            "rate",
+            "reviews",
+        ]
+
+    def get_rate(self, obj):
+        reviews = obj.movie_reviews.all()
+        result = sum(r.stars for r in reviews) / len(reviews)
+        return round(result, 2) if reviews else 0
+
+    def get_reviews(self, obj):
+        return len(obj.movie_reviews.all())
 
 
 class MovieRetrieveSerializer(serializers.ModelSerializer):
@@ -22,10 +40,20 @@ class MovieRetrieveSerializer(serializers.ModelSerializer):
         many=True, read_only=True
     )
     movie_cast = ActorRetrieveSerializer(many=True, read_only=True)
+    rate = serializers.SerializerMethodField(read_only=True)
+    reviews = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Movie
         fields = "__all__"
+
+    def get_rate(self, obj):
+        reviews = obj.movie_reviews.all()
+        result = sum(r.stars for r in reviews) / len(reviews)
+        return round(result, 2) if reviews else 0
+
+    def get_reviews(self, obj):
+        return len(obj.movie_reviews.all())
 
 
 class MovieCreateUpdateDestroySerializer(serializers.ModelSerializer):
