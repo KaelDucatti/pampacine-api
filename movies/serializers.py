@@ -28,8 +28,10 @@ class MovieListSerializer(serializers.ModelSerializer):
 
     def get_rate(self, obj):
         reviews = obj.movie_reviews.all()
-        result = sum(r.stars for r in reviews) / len(reviews)
-        return round(result, 2) if reviews else 0
+        result = (
+            sum(r.stars for r in reviews) / reviews.count() if reviews else 0
+        )
+        return round(result, 2)
 
     def get_reviews(self, obj):
         return len(obj.movie_reviews.all())
