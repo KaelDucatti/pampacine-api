@@ -49,12 +49,12 @@ class MovieRetrieveSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_rate(self, obj):
-        reviews = obj.movie_reviews.all()
-        result = sum(r.stars for r in reviews) / len(reviews)
-        return round(result, 2) if reviews else 0
+        reviews = obj.movie_reviews.aggregate(avg=Avg("stars"))
+        result = reviews.get("avg", 0)
+        return round(result, 1)
 
     def get_reviews(self, obj):
-        return len(obj.movie_reviews.all())
+        return obj.movie_reviews.count()
 
 
 class MovieCreateUpdateDestroySerializer(serializers.ModelSerializer):
