@@ -6,11 +6,11 @@ urlpatterns = [
     path(
         "movies/",
         MovieListCreateAPIView.as_view(),
-        name="movies-list-create",
+        name="movies_list_create",
     ),
     path(
         "movies/<int:pk>/",
         MovieRetrieveUpdateDestroyAPIView.as_view(),
-        name="movies-retreive-update-destroy",
+        name="movies_retreive_update_destroy",
     ),
 ]

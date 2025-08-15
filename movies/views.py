@@ -2,7 +2,7 @@ from rest_framework.generics import (
     ListCreateAPIView,
     RetrieveUpdateDestroyAPIView,
 )
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .models import Movie
 from .serializers import (
@@ -13,7 +13,7 @@ from .serializers import (
 
 
 class MovieListCreateAPIView(ListCreateAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Movie.objects.prefetch_related("movie_cast", "genres").all()
 
     def get_serializer_class(self):
@@ -23,7 +23,7 @@ class MovieListCreateAPIView(ListCreateAPIView):
 
 
 class MovieRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Movie.objects.prefetch_related(
         "movie_cast__nationality", "genres"
     ).all()

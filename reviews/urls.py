@@ -6,11 +6,11 @@ urlpatterns = [
     path(
         "reviews/",
         ReviewListCreateAPIView.as_view(),
-        name="review-list-create",
+        name="review_list_create",
     ),
     path(
         "reviews/<int:pk>/",
         ReviewRetrieveUpdateDestroyAPIView.as_view(),
-        name="review-retrieve-update-destroy",
+        name="review_retrieve_update_destroy",
     ),
 ]

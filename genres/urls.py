@@ -6,11 +6,11 @@ urlpatterns = [
     path(
         "genres/",
         GenreListCreateAPIView.as_view(),
-        name="genre-list-create",
+        name="genre_list_create",
     ),
     path(
         "genres/<int:pk>/",
         GenreRetriveUpdateDestroyAPIView.as_view(),
-        name="genre-retrieve-update-destroy",
+        name="genre_retrieve_update_destroy",
     ),
 ]
