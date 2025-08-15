@@ -2,6 +2,7 @@ from rest_framework.generics import (
     ListCreateAPIView,
     RetrieveUpdateDestroyAPIView,
 )
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Actor, Nationality
 from .serializers import (
@@ -14,6 +15,7 @@ from .serializers import (
 
 
 class ActorListCreateAPIView(ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Actor.objects.select_related("nationality").all()
 
     def get_serializer_class(self):
@@ -23,6 +25,7 @@ class ActorListCreateAPIView(ListCreateAPIView):
 
 
 class ActorRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Actor.objects.select_related("nationality").all()
 
     def get_serializer_class(self):
@@ -32,6 +35,7 @@ class ActorRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
 
 class NationalityListCreateAPIView(ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Nationality.objects.all()
 
     def get_serializer_class(self):
@@ -41,5 +45,6 @@ class NationalityListCreateAPIView(ListCreateAPIView):
 
 
 class NationalityRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Nationality.objects.all()
     serializer_class = NationalityRetrieveCreateUpdateDestroySerializer
