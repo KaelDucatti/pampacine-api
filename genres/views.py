@@ -16,6 +16,6 @@ class GenreListCreateAPIView(ListCreateAPIView):
 
 
 class GenreRetriveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, GenrePermission)
     queryset = Genre.objects.all()
     serializer_class = GenreRetrieveCreateUpdateDestroySerializer
