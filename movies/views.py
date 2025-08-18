@@ -4,6 +4,8 @@ from rest_framework.generics import (
 )
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
+from config.permissions import GlobalDefaultPermission
+
 from .models import Movie
 from .serializers import (
     MovieCreateUpdateDestroySerializer,
@@ -13,7 +15,7 @@ from .serializers import (
 
 
 class MovieListCreateAPIView(ListCreateAPIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, GlobalDefaultPermission)
     queryset = Movie.objects.prefetch_related("movie_cast", "genres").all()
 
     def get_serializer_class(self):
@@ -23,7 +25,7 @@ class MovieListCreateAPIView(ListCreateAPIView):
 
 
 class MovieRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, GlobalDefaultPermission)
     queryset = Movie.objects.prefetch_related(
         "movie_cast__nationality", "genres"
     ).all()

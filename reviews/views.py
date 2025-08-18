@@ -4,6 +4,8 @@ from rest_framework.generics import (
 )
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
+from config.permissions import GlobalDefaultPermission
+
 from .models import Review
 from .serializers import (
     ReviewCreateUpdateDestroySerializer,
@@ -13,7 +15,7 @@ from .serializers import (
 
 
 class ReviewListCreateAPIView(ListCreateAPIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, GlobalDefaultPermission)
     queryset = Review.objects.select_related("movie").all()
 
     def get_serializer_class(self):
@@ -23,7 +25,7 @@ class ReviewListCreateAPIView(ListCreateAPIView):
 
 
 class ReviewRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, GlobalDefaultPermission)
     queryset = Review.objects.select_related("movie").all()
 
     def get_serializer_class(self):
