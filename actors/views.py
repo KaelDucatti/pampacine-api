@@ -4,6 +4,8 @@ from rest_framework.generics import (
 )
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
+from config.permissions import GlobalDefaultPermission
+
 from .models import Actor, Nationality
 from .serializers import (
     ActorCreateUpdateDestroySerializer,
@@ -15,7 +17,7 @@ from .serializers import (
 
 
 class ActorListCreateAPIView(ListCreateAPIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, GlobalDefaultPermission)
     queryset = Actor.objects.select_related("nationality").all()
 
     def get_serializer_class(self):
@@ -25,7 +27,7 @@ class ActorListCreateAPIView(ListCreateAPIView):
 
 
 class ActorRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, GlobalDefaultPermission)
     queryset = Actor.objects.select_related("nationality").all()
 
     def get_serializer_class(self):
@@ -35,7 +37,7 @@ class ActorRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
 
 class NationalityListCreateAPIView(ListCreateAPIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, GlobalDefaultPermission)
     queryset = Nationality.objects.all()
 
     def get_serializer_class(self):
@@ -45,6 +47,6 @@ class NationalityListCreateAPIView(ListCreateAPIView):
 
 
 class NationalityRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, GlobalDefaultPermission)
     queryset = Nationality.objects.all()
     serializer_class = NationalityRetrieveCreateUpdateDestroySerializer
