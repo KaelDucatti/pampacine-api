@@ -36,7 +36,7 @@ O **pampacine-api** é uma API para cadastro e consulta de filmes, gêneros, ato
 - **Django**: Framework web robusto e escalável.
 - **Django REST Framework**: Ferramenta poderosa para criação de APIs RESTful.
 - **SQLite/PostgreSQL**: Banco de dados para persistência de dados.
-- **Python 3.x**: Linguagem de programação de alto nível.
+- **Python 3.13**: Linguagem de programação de alto nível.
 
 ## Instalação e Configuração
 
