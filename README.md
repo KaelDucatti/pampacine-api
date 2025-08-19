@@ -1,21 +1,24 @@
 # pampacine-api
 
-API RESTful para gerenciamento de filmes, gêneros, atores e avaliações, desenvolvida com Django e Django REST Framework.
+API RESTful para gerenciamento de filmes, gêneros, atores e avaliações, desenvolvida com Django, Django REST Framework e outras ferramentas.
 
 ## Índice
 
+- [Introdução](#introdução)
 - [Visão Geral](#visão-geral)
 - [Funcionalidades](#funcionalidades)
-- [Instalação](#instalação)
-- [Configuração](#configuração)
+- [Tecnologias](#tecnologias)
+- [Instalação e Configuração](#instalação-e-configuração)
 - [Execução](#execução)
 - [Endpoints Principais](#endpoints-principais)
-- [Autenticação](#autenticação)
+- [Autenticação e Segurança](#autenticação-e-segurança)
 - [Testes](#testes)
 - [Contribuição](#contribuição)
 - [Licença](#licença)
 
----
+## Introdução
+
+Esta documentação descreve a API do projeto **pampacine-api**, que permite o gerenciamento de conteúdos relacionados a filmes, gêneros, atores e avaliações, oferecendo uma estrutura robusta para aplicações web e mobile.
 
 ## Visão Geral
 
@@ -23,23 +26,30 @@ O **pampacine-api** é uma API para cadastro e consulta de filmes, gêneros, ato
 
 ## Funcionalidades
 
-- CRUD de filmes, gêneros, atores e nacionalidades
-- Cadastro e consulta de avaliações de filmes
-- Filtros e buscas nos principais recursos
-- Estrutura modular e escalável
+- CRUD completo de filmes, gêneros, atores, nacionalidades e avaliações.
+- Suporte a filtros, buscas e paginação em endpoints.
+- Interface administrativa integrada com Django Admin.
+- Estrutura modular preparada para escalabilidade e manutenção.
 
-## Instalação
+## Tecnologias
+
+- **Django**: Framework web robusto e escalável.
+- **Django REST Framework**: Ferramenta poderosa para criação de APIs RESTful.
+- **SQLite/PostgreSQL**: Banco de dados para persistência de dados.
+- **Python 3.x**: Linguagem de programação de alto nível.
+
+## Instalação e Configuração
 
 1. Clone o repositório:
     ```sh
-    git clone https://github.com/seu-usuario/pampacine-api.git
+    git clone https://github.com/KaelDucatti/pampacine-api.git
     cd pampacine-api
     ```
 
 2. Crie e ative um ambiente virtual:
     ```sh
-    python -m venv venv
-    source venv/bin/activate
+    python -m venv .venv
+    source .venv/bin/activate
     ```
 
 3. Instale as dependências:
@@ -47,85 +57,79 @@ O **pampacine-api** é uma API para cadastro e consulta de filmes, gêneros, ato
     pip install -r requirements.txt
     ```
 
-## Configuração
-
-1. Configure as variáveis de ambiente no arquivo [`config/settings.py`](config/settings.py), especialmente as informações do banco de dados PostgreSQL.
-2. Realize as migrações:
+4. Realize as migrações:
     ```sh
     python manage.py migrate
     ```
 
-3. (Opcional) Crie um superusuário:
+5. (Opcional) Crie um superusuário para acessar o Django Admin:
     ```sh
     python manage.py createsuperuser
     ```
 
 ## Execução
 
-Para rodar o servidor de desenvolvimento:
-
+Inicie o servidor de desenvolvimento:
 ```sh
 python manage.py runserver
 ```
-
-Acesse a documentação administrativa em `http://localhost:8000/admin/`.
+Acesse a interface administrativa em: [http://localhost:8000/admin/](http://localhost:8000/admin/).
 
 ## Endpoints Principais
 
-A API está disponível sob o prefixo `/api/v1/`. Exemplos de endpoints:
+A API está acessível pelo prefixo `/api/v1/`. Exemplos de endpoints:
 
 - **Filmes**
-    - `GET /api/v1/movies/` — Lista filmes
-    - `POST /api/v1/movies/` — Cria filme
-    - `GET /api/v1/movies/<id>/` — Detalha filme
-    - `PUT/PATCH/DELETE /api/v1/movies/<id>/` — Atualiza/Remove filme
+    - `GET    /api/v1/movies/` — Lista filmes
+    - `POST   /api/v1/movies/` — Cria filme
+    - `GET    /api/v1/movies/<id>/` — Detalha filme
+    - `PUT    /api/v1/movies/<id>/` — Atualiza filme
+    - `DELETE /api/v1/movies/<id>/` — Remove filme
 
 - **Gêneros**
-    - `GET /api/v1/genres/`
-    - `POST /api/v1/genres/`
-    - `GET /api/v1/genres/<id>/`
+    - `GET    /api/v1/genres/`
+    - `POST   /api/v1/genres/`
+    - `GET    /api/v1/genres/<id>/`
     - `PUT/PATCH/DELETE /api/v1/genres/<id>/`
 
 - **Atores**
-    - `GET /api/v1/actors/`
-    - `POST /api/v1/actors/`
-    - `GET /api/v1/actors/<id>/`
+    - `GET    /api/v1/actors/`
+    - `POST   /api/v1/actors/`
+    - `GET    /api/v1/actors/<id>/`
     - `PUT/PATCH/DELETE /api/v1/actors/<id>/`
 
 - **Nacionalidades**
-    - `GET /api/v1/nationality/`
-    - `POST /api/v1/nationality/`
-    - `GET /api/v1/nationality/<id>/`
+    - `GET    /api/v1/nationality/`
+    - `POST   /api/v1/nationality/`
+    - `GET    /api/v1/nationality/<id>/`
     - `PUT/PATCH/DELETE /api/v1/nationality/<id>/`
 
 - **Avaliações**
-    - `GET /api/v1/reviews/`
-    - `POST /api/v1/reviews/`
-    - `GET /api/v1/reviews/<id>/`
+    - `GET    /api/v1/reviews/`
+    - `POST   /api/v1/reviews/`
+    - `GET    /api/v1/reviews/<id>/`
     - `PUT/PATCH/DELETE /api/v1/reviews/<id>/`
 
-## Autenticação
+## Autenticação e Segurança
 
-Atualmente, a API não exige autenticação para acesso aos endpoints públicos. Para proteger endpoints, configure autenticação no [`config/settings.py`](config/settings.py) conforme necessário.
+Atualmente, os endpoints públicos não exigem autenticação. Para áreas restritas, implemente mecanismos de autenticação e autorização no arquivo [`config/settings.py`](config/settings.py).
 
 ## Testes
 
-Execute os testes automatizados com:
-
+Execute os testes automatizados para garantir o funcionamento da API:
 ```sh
 python manage.py test
 ```
 
 ## Contribuição
 
-Contribuições são bem-vindas! Siga os passos:
-
-1. Fork este repositório
-2. Crie uma branch (`git checkout -b feature/nova-feature`)
-3. Commit suas alterações (`git commit -am 'Adiciona nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
+Contribuições são bem-vindas! Para contribuir:
+1. Faça um fork deste repositório.
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`).
+3. Realize os commits necessários (`git commit -am 'Adiciona nova feature'`).
+4. Envie sua branch para o repositório (`git push origin feature/nova-feature`).
+5. Abra um Pull Request com uma descrição das alterações.
 
 ## Licença
 
-Este projeto está licenciado sob a licença MIT. Veja o arquivo [`static/admin/img/LICENSE`](static/admin/img/LICENSE) para mais detalhes.
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo [`static/admin/img/LICENSE`](static/admin/img/LICENSE) para mais informações.
