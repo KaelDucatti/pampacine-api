@@ -1,6 +1,10 @@
 from django.urls import path
 
-from .views import MovieListCreateAPIView, MovieRetrieveUpdateDestroyAPIView
+from .views import (
+    MovieListCreateAPIView,
+    MovieRetrieveUpdateDestroyAPIView,
+    MovieStatsAPIView,
+)
 
 urlpatterns = [
     path(
@@ -13,4 +17,5 @@ urlpatterns = [
         MovieRetrieveUpdateDestroyAPIView.as_view(),
         name="movies_retreive_update_destroy",
     ),
+    path("movies/stats/", MovieStatsAPIView.as_view(), name="movies_stats"),
 ]

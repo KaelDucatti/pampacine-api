@@ -3,6 +3,7 @@ from django.urls import path
 from .views import (
     ActorListCreateAPIView,
     ActorRetrieveUpdateDestroyAPIView,
+    ActorStatsAPIView,
     NationalityListCreateAPIView,
     NationalityRetrieveUpdateDestroyAPIView,
 )
@@ -27,5 +28,10 @@ urlpatterns = [
         "nationality/<int:pk>/",
         NationalityRetrieveUpdateDestroyAPIView.as_view(),
         name="nationality_retrieve_update_destroy",
+    ),
+    path(
+        "actors/<int:pk>/stats/",
+        ActorStatsAPIView.as_view(),
+        name="actor_stats",
     ),
 ]

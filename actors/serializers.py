@@ -20,7 +20,7 @@ class NationalityListSerializer(serializers.ModelSerializer):
 class ActorListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actor
-        fields = ["first_name", "last_name"]
+        fields = ["id", "first_name", "last_name"]
 
 
 class ActorRetrieveSerializer(serializers.ModelSerializer):
