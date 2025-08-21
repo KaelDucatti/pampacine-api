@@ -16,6 +16,7 @@ from .serializers import (
     MovieCreateUpdateDestroySerializer,
     MovieListSerializer,
     MovieRetrieveSerializer,
+    MovieStatsSerializer,
 )
 
 
@@ -60,14 +61,16 @@ class MovieStatsAPIView(APIView):
             .order_by("-avg_stars")
         )
 
+        data = {
+            "total_movies": total_movies,
+            "total_reviews": total_reviews,
+            "avg_stars_by_genre": list(average_stars),
+            "movie_by_genre": list(movie_by_gender),
+        }
+
+        serializer = MovieStatsSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+
         return Response(
-            data={
-                "total_movies": total_movies,
-                "movie_stats": {
-                    "total_reviews": total_reviews,
-                    "avg_stars_by_genre": list(average_stars),
-                    "movie_by_genre": list(movie_by_gender),
-                },
-            },
-            status=status.HTTP_200_OK,
+            data=serializer.validated_data, status=status.HTTP_200_OK
         )

@@ -75,3 +75,10 @@ class MovieCreateUpdateDestroySerializer(serializers.ModelSerializer):
                 "O resumo não pode ultrapassar 200 caracteres."
             )
         return value
+
+
+class MovieStatsSerializer(serializers.Serializer):
+    total_movies = serializers.IntegerField()
+    total_reviews = serializers.IntegerField()
+    avg_stars_by_genre = serializers.ListField()
+    movie_by_genre = serializers.ListField()
