@@ -3,7 +3,7 @@ from datetime import datetime
 
 from django.core.management.base import BaseCommand
 
-from actors.models import Actor
+from actors.models import Actor, Nationality
 
 
 class Command(BaseCommand):
@@ -12,17 +12,20 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         file_name = options["file_name"]
-        print(f"file name: {file_name}")
 
-        with open("actors.csv", "r", encoding="utf-8") as file:
+        with open(file_name, "r", encoding="utf-8") as file:
             reader = csv.DictReader(file)
             for row in reader:
                 first_name = row["first_name"]
                 last_name = row["last_name"]
+
                 birthday = datetime.strptime(
-                    row["birthday"], "%Y-%m-%d"
+                    row["birthday"].strip(), "%Y-%m-%d"
                 ).date()
-                nationality = row["nationality"]
+
+                nationality = Nationality.objects.get(
+                    acronym=row["nationality"].strip()
+                )
 
                 Actor.objects.create(
                     first_name=first_name,
@@ -30,4 +33,5 @@ class Command(BaseCommand):
                     birthday=birthday,
                     nationality=nationality,
                 )
+
         self.stdout.write(self.style.SUCCESS("Atores importados com sucesso!"))
